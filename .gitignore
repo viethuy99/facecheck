@@ -1,0 +1,9 @@
+env/
+__pycache__
+.vscode
+
+*.jpg
+*.h5
+*.xml
+*.sav
+*.npz
