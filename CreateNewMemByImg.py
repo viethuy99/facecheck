@@ -13,7 +13,7 @@ face_cascade = cv2.CascadeClassifier(
 # Config
 # Muon them nguoi thi sua CREATE_NEW_MEMBER thanh 1 va sua NAME thanh ten nguoi do
 
-NAME = "Duy"
+NAME = "Huy"
 CREATE_NEW_MEMBER = 1
 
 
@@ -24,21 +24,26 @@ classes = data_json["name"]
 numberPerson = len(classes)
 file_json.close()
 
-if NAME in classes:
-    CREATE_NEW_MEMBER = 0
+
+# if NAME in classes:
+#     CREATE_NEW_MEMBER = 0
 if CREATE_NEW_MEMBER == 1:
     if not os.path.exists('./img_save/'+NAME):
         os.makedirs('./img_save/'+NAME)
-    data_json["name"][NAME] = str(numberPerson)
-    data_json["id"][str(numberPerson)] = NAME
-    with open('Name_with_Id.json', 'w') as f:
-        json.dump(data_json, f)
+    if NAME in data_json["name"].keys():
+        print("name exist!")
+    else:
+        print(data_json["name"][NAME])
+        data_json["name"][NAME] = str(numberPerson)
+        data_json["id"][str(numberPerson)] = NAME
+        with open('Name_with_Id.json', 'w') as f:
+            json.dump(data_json, f)
 
 if __name__ == '__main__':
 
     numFrame = 0
     numFrameNull = 0
-    dir = "./img_data/"+NAME+"/"
+    dir = "./img_noise/"+NAME+"/"
     for filename in os.listdir(dir):
         img = cv2.imread(dir+filename)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

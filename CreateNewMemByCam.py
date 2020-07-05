@@ -13,8 +13,9 @@ face_cascade = cv2.CascadeClassifier(
 # Config
 # Muon them nguoi thi sua CREATE_NEW_MEMBER thanh 1 va sua NAME thanh ten nguoi do
 
-NAME = "Phuc"
+NAME = "Huy"
 CREATE_NEW_MEMBER = 1
+OVERWRITE_SAME_NAME = 1
 
 file_json = open("Name_with_Id.json")
 
@@ -25,13 +26,17 @@ file_json.close()
 
 if NAME in classes:
     CREATE_NEW_MEMBER = 0
-if CREATE_NEW_MEMBER == 1:
+if CREATE_NEW_MEMBER == 1 or OVERWRITE_SAME_NAME == 1:
     if not os.path.exists('./img_save/'+NAME):
         os.makedirs('./img_save/'+NAME)
-    data_json["name"][NAME] = str(numberPerson)
-    data_json["id"][str(numberPerson)] = NAME
-    with open('Name_with_Id.json', 'w') as f:
-        json.dump(data_json, f)
+    if NAME in data_json["name"].keys():
+        print("name exist!")
+    else:
+        print(data_json["name"][NAME])
+        data_json["name"][NAME] = str(numberPerson)
+        data_json["id"][str(numberPerson)] = NAME
+        with open('Name_with_Id.json', 'w') as f:
+            json.dump(data_json, f)
 
 if __name__ == '__main__':
 
@@ -71,8 +76,8 @@ if __name__ == '__main__':
             num = numFrame/imgPerFrame
             num=int(num)
             print(num)
-            # # ghi class va anh ra file
-            if CREATE_NEW_MEMBER==1:
+            # ghi class va anh ra file
+            if CREATE_NEW_MEMBER == 1 or OVERWRITE_SAME_NAME == 1:
     
                 img_name = './img_save/'+NAME+'/'+str(num)+'.jpg'
                 print(NAME)

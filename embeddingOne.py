@@ -15,7 +15,7 @@ model = load_model('./pretrain_model/facenet_keras.h5')
 classes, class_name, numberPerson = get_data_member("Name_with_Id.json")
 
 # config
-name = "Phuc"
+name = "Huy"
 embedded_data = name+".npz"
 
 if __name__ == '__main__':
